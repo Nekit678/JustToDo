@@ -32,7 +32,22 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #d5d3d3;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
 }
