@@ -11,11 +11,12 @@ function App() {
 
 
   return (
-    <div className='bg-zinc-700 h-screen flex flex-row' >
-      <div className='bg-zinc-700'>
+    <div className='bg-zinc-700 flex h-screen' >
+      <div className='bg-zinc-700 flex-grow'>
         NAVBARNAVBARNAVBAR
+        <button>Задачи</button>
       </div>
-      <div className='basis-full rounded-lg ' style={{ backgroundSize: '100% 100%', backgroundImage: `url(https://ze-robot.com/images/source/39666.jpg)` }}>
+      <div className='basis-full rounded-lg flex-grow ' style={{ backgroundSize: '100% 100%', backgroundImage: `url(https://ze-robot.com/images/source/39666.jpg)` }}>
 
         <MainList></MainList>
 
