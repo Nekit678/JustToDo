@@ -5,7 +5,6 @@ import { TaskListType } from './../types/types';
 export const TaskList = (props: TaskListType) => {
     const [show, toggleShow] = useState(true)
 
-
     return (
         <div>
             <div className='mt-5 flex flex-col gap-3 items-center '>
@@ -15,7 +14,7 @@ export const TaskList = (props: TaskListType) => {
                         {props.closed ? "Завершенные " : "Текущие "}{props.count}</text></button>
                     <div className={`${show?"h-60":""} overflow-x-clip overflow-y-scroll scroll-smooth`}>
                         {show ? <div className='flex flex-col gap-2 mr-2 ml-2'>
-                            {props.tasks?.map((item) => (<ToDo key={item.id} primary={item.primary} closed={item.closed} text={item.text} id={item.id}></ToDo>))}
+                            {props.tasks?.map((item) => (<ToDo key={item.id} primary={item.primary} closed={item.closed} text={item.text} id={item.id} complete={item.complete}></ToDo>))}
                         </div> : <></>}
                     </div>
                 </div>
