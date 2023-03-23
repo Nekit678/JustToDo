@@ -11,9 +11,10 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem("shortInfo") == null) {
-      localStorage.setItem("shortInfo", JSON.stringify([]))
+      localStorage.setItem("shortInfo", JSON.stringify({"lists":[], "lastId":0}))
     }
-    const shortInfo = JSON.parse(localStorage.getItem("shortInfo") || "[]")
+    const shortInfo = JSON.parse(localStorage.getItem("shortInfo") || '{"lists":[], "lastId":0}')
+    
     dispatch(setInfo(shortInfo))
   }, [])
 

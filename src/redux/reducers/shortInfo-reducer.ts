@@ -11,6 +11,11 @@ interface initialStateType {
     lastId: number
 }
 
+interface setInfoAction{
+    payload:initialStateType
+    type:string
+}
+
 let initialState: initialStateType = {
     lists: [],
     lastId:0
@@ -21,7 +26,7 @@ const shortInfoSlice = createSlice(
         name: "shortInfo",
         initialState: initialState,
         reducers: {
-            setInfo(state, action) {
+            setInfo(state, action:setInfoAction) {
                 state.lists = action.payload.lists
                 state.lastId = action.payload.lastId
             }

@@ -1,11 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface initialStateType {
-    currentId:number
+    currentId: number
 }
 
+interface setIdAction {
+    payload: number
+    type: string
+}
+
+
+
 let initialState: initialStateType = {
-    currentId:0
+    currentId: 0
 }
 
 const appSlice = createSlice(
@@ -13,7 +20,7 @@ const appSlice = createSlice(
         name: "app",
         initialState: initialState,
         reducers: {
-            setId(state, action) {
+            setId(state, action: setIdAction) {
                 state.currentId = action.payload
             }
         }

@@ -1,3 +1,9 @@
+export interface NavbarButtonType{
+    id:number
+    name:string
+    count:number
+    onClick: (id:number)=>(void)
+}
 
 export interface TaskListType {
     closed?: boolean

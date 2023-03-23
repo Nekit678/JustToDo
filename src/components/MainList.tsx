@@ -1,25 +1,25 @@
 import { TaskList } from './TaskList';
 import { AddTaskInput } from './AddTaskInput';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { RootState } from '../redux/store';
+import { getClosedTasks, getOpenTasks } from './../redux/selectors/fullInfo-selectors';
 
 
 export const MainList = () => {
+
+    const dispatch = useDispatch()
+    const currentId = useSelector((state: RootState) => state.app.currentId)
+    
+    const openTasks = useSelector((state:RootState) => getOpenTasks(state,currentId))
+    const closedTasks = useSelector((state:RootState) => getClosedTasks(state,currentId))
+
     const completeTask = (id: number) => {
         console.log(id)
     }
 
-    const t = [{ primary: true, text: "TEST TEST", closed: true, id: 0, complete:completeTask },
-    { primary: true, text: "TEST TEST", closed: true, id: 1, complete:completeTask },
-    { primary: false, text: "TEST TEST", closed: true, id: 2, complete:completeTask },
-    { primary: true, text: "TEST TEST", closed: false, id: 3, complete:completeTask },
-    { primary: false, text: "TEST TEST", closed: false, id: 4, complete:completeTask },
-    { primary: false, text: "TEST TEST", closed: false, id: 5, complete:completeTask }]
-
-    const [tasks, setTasks] = useState(t)
-    const [closed, setClosed] = useState(t)
-
-    const addTask = (text:string) => {
-        setTasks([...tasks, {primary: true, text: text, closed: false, id: 6, complete:completeTask}])
+    const addTask = (text: string) => {
+        //setTasks([...tasks, { primary: true, text: text, closed: false, id: 6, complete: completeTask }])
     }
 
     return (
@@ -32,9 +32,9 @@ export const MainList = () => {
             <AddTaskInput addTask={addTask}></AddTaskInput>
 
 
-            <TaskList count={123} tasks={tasks}></TaskList>
+            <TaskList count={123} tasks={openTasks}></TaskList>
 
-            <TaskList closed count={789} tasks={closed}></TaskList>
+            <TaskList closed count={789} tasks={closedTasks}></TaskList>
         </div>
     )
 }
