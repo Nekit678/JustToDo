@@ -9,6 +9,7 @@ export interface TaskListType {
     closed?: boolean
     count: number
     tasks?: ToDoType[]
+    toggle?: (id: number) => (void)
 }
 
 export interface ToDoType {

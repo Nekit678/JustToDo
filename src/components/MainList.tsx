@@ -11,16 +11,18 @@ export const MainList = () => {
     const dispatch = useDispatch()
     const currentId = useSelector((state: RootState) => state.app.currentId)
 
+    const switchTask = (id: number) => {
+        dispatch(toggleTask({ list_id: currentId, task_id: id }))
+    }
+
     const { openTasks, openCount } = useSelector((state: RootState) => getOpenTasks(state, currentId))
     const { closedTasks, closedCount } = useSelector((state: RootState) => getClosedTasks(state, currentId))
-
-    const switchTask = (id: number) => {
-        dispatch(toggleTask({list_id:currentId, task_id:id}))
-    }
 
     const createTask = (text: string) => {
         dispatch(addTask({ id: currentId, task: { primary: true, text: text, closed: false, id: 6 } }))
     }
+
+
 
     return (
         <div className='flex flex-col gap-5 '>
@@ -30,10 +32,10 @@ export const MainList = () => {
             </div>
 
             <AddTaskInput addTask={createTask}></AddTaskInput>
-            
-            <TaskList count={openCount || 0} tasks={openTasks}></TaskList>
 
-            <TaskList closed count={closedCount || 0} tasks={closedTasks}></TaskList>
+            <TaskList count={openCount || 0} tasks={openTasks} toggle={switchTask}></TaskList>
+
+            <TaskList closed count={closedCount || 0} tasks={closedTasks} toggle={switchTask}></TaskList>
         </div>
     )
 }
