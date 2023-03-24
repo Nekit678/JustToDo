@@ -21,7 +21,7 @@ let initialState: initialStateType = {
     lists: [{
         id: 0, name: "ТЕСТ1", tasks: [{ primary: true, text: "TEST TEST", closed: true, id: 0 },
         { primary: true, text: "TEST TEST", closed: true, id: 1 },
-        { primary: false, text: "TEST TEST", closed: true, id: 2 },
+        { primary: false, text: "TEST TEST", closed: false, id: 2 },
         { primary: true, text: "TEST TEST", closed: false, id: 3 },
         { primary: false, text: "TEST TEST", closed: false, id: 4 },
         { primary: false, text: "TEST TEST", closed: false, id: 5 }]
@@ -41,11 +41,20 @@ const fullInfoSlice = createSlice(
         initialState: initialState,
         reducers: {
             setInfo(state, action) {
+            },
+            addTask(state, action) {
+                //! Pure Function????
+                const list = state.lists.find((item) => (item.id == action.payload.id))
+                list?.tasks.push(action.payload.task)
+                
+            },
+            closeTask(state, action){
+                const list = state.lists.find((item) => (item.id == action.payload.id))
             }
         }
     }
 )
 
 
-export const { setInfo } = fullInfoSlice.actions
+export const { setInfo, addTask } = fullInfoSlice.actions
 export default fullInfoSlice.reducer

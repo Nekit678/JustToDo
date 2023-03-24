@@ -1,25 +1,25 @@
 import { TaskList } from './TaskList';
 import { AddTaskInput } from './AddTaskInput';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { RootState } from '../redux/store';
 import { getClosedTasks, getOpenTasks } from './../redux/selectors/fullInfo-selectors';
+import { addTask } from '../redux/reducers/fullInfo-reducer';
 
 
 export const MainList = () => {
 
     const dispatch = useDispatch()
     const currentId = useSelector((state: RootState) => state.app.currentId)
-    
-    const openTasks = useSelector((state:RootState) => getOpenTasks(state,currentId))
-    const closedTasks = useSelector((state:RootState) => getClosedTasks(state,currentId))
+
+    const { openTasks, openCount } = useSelector((state: RootState) => getOpenTasks(state, currentId))
+    const { closedTasks, closedCount } = useSelector((state: RootState) => getClosedTasks(state, currentId))
 
     const completeTask = (id: number) => {
         console.log(id)
     }
 
-    const addTask = (text: string) => {
-        //setTasks([...tasks, { primary: true, text: text, closed: false, id: 6, complete: completeTask }])
+    const createTask = (text: string) => {
+        dispatch(addTask({ id: currentId, task: { primary: true, text: text, closed: false, id: 6 } }))
     }
 
     return (
@@ -29,12 +29,12 @@ export const MainList = () => {
                 <text className='text-gray-200 font-medium text-3xl'>Задачи</text>
             </div>
 
-            <AddTaskInput addTask={addTask}></AddTaskInput>
+            <AddTaskInput addTask={createTask}></AddTaskInput>
 
 
-            <TaskList count={123} tasks={openTasks}></TaskList>
+            <TaskList count={openCount || 0} tasks={openTasks}></TaskList>
 
-            <TaskList closed count={789} tasks={closedTasks}></TaskList>
+            <TaskList closed count={closedCount || 0} tasks={closedTasks}></TaskList>
         </div>
     )
 }

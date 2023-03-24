@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface listType {
-    id:number
+    id: number
     name: string
     count: number
 }
@@ -11,14 +11,14 @@ interface initialStateType {
     lastId: number
 }
 
-interface setInfoAction{
-    payload:initialStateType
-    type:string
+interface setInfoAction {
+    payload: initialStateType
+    type: string
 }
 
 let initialState: initialStateType = {
     lists: [],
-    lastId:0
+    lastId: 0
 }
 
 const shortInfoSlice = createSlice(
@@ -26,7 +26,7 @@ const shortInfoSlice = createSlice(
         name: "shortInfo",
         initialState: initialState,
         reducers: {
-            setInfo(state, action:setInfoAction) {
+            setInfo(state, action: setInfoAction) {
                 state.lists = action.payload.lists
                 state.lastId = action.payload.lastId
             }

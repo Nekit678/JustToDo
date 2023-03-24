@@ -9,8 +9,8 @@ let store = configureStore(
     {
         reducer: {
             shortInfo: shortInfoReducer,
-            app:appReducer,
-            fullInfo:fullInfoReducer
+            app: appReducer,
+            fullInfo: fullInfoReducer
         }
     }
 )
