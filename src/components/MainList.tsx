@@ -3,7 +3,7 @@ import { AddTaskInput } from './AddTaskInput';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { RootState } from '../redux/store';
 import { getClosedTasks, getOpenTasks } from './../redux/selectors/fullInfo-selectors';
-import { addTask } from '../redux/reducers/fullInfo-reducer';
+import { addTask, toggleTask } from '../redux/reducers/fullInfo-reducer';
 
 
 export const MainList = () => {
@@ -14,8 +14,8 @@ export const MainList = () => {
     const { openTasks, openCount } = useSelector((state: RootState) => getOpenTasks(state, currentId))
     const { closedTasks, closedCount } = useSelector((state: RootState) => getClosedTasks(state, currentId))
 
-    const completeTask = (id: number) => {
-        console.log(id)
+    const switchTask = (id: number) => {
+        dispatch(toggleTask({list_id:currentId, task_id:id}))
     }
 
     const createTask = (text: string) => {
@@ -30,8 +30,7 @@ export const MainList = () => {
             </div>
 
             <AddTaskInput addTask={createTask}></AddTaskInput>
-
-
+            
             <TaskList count={openCount || 0} tasks={openTasks}></TaskList>
 
             <TaskList closed count={closedCount || 0} tasks={closedTasks}></TaskList>

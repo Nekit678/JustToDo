@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface taskType {
-    primary?: boolean
-    text?: string
-    closed?: boolean
+    primary: boolean
+    text: string
+    closed: boolean
     id: number
 }
 
@@ -15,6 +15,16 @@ interface listType {
 
 interface initialStateType {
     lists: listType[]
+}
+
+interface addTaskAction {
+    type: string
+    payload: { id: number, task: taskType }
+}
+
+interface toggleTaskAction {
+    type: string
+    payload: { list_id: number, task_id: number }
 }
 
 let initialState: initialStateType = {
@@ -42,19 +52,22 @@ const fullInfoSlice = createSlice(
         reducers: {
             setInfo(state, action) {
             },
-            addTask(state, action) {
-                //! Pure Function????
+            addTask(state, action: addTaskAction) {
                 const list = state.lists.find((item) => (item.id == action.payload.id))
                 list?.tasks.push(action.payload.task)
-                
             },
-            closeTask(state, action){
-                const list = state.lists.find((item) => (item.id == action.payload.id))
-            }
+            toggleTask(state, action: toggleTaskAction) {
+                const list = state.lists.find((item) => (item.id == action.payload.list_id))
+                const task = list?.tasks.find((item) => (item.id == action.payload.task_id))
+                if (task != undefined) {
+                    task.closed = !task.closed
+                }
+            },
+
         }
     }
 )
 
 
-export const { setInfo, addTask } = fullInfoSlice.actions
+export const { setInfo, addTask, toggleTask } = fullInfoSlice.actions
 export default fullInfoSlice.reducer
