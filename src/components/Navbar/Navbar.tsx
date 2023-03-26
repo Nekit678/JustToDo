@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { RootState } from '../../redux/store';
 import { NavbarButton } from './NavbarButton';
 import { setId } from '../../redux/reducers/app-reducer';
+import { getShortInfo } from './../../redux/selectors/fullInfo-selectors';
 
 export const Navbar = () => {
     const dispatch = useDispatch()
-    const lists = useSelector((state: RootState) => state.shortInfo.lists)
-    console.log(lists)
+    const lists = useSelector((state: RootState) => getShortInfo(state))
 
     const changeList = (id:number)=>{
         dispatch(setId(id))

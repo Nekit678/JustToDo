@@ -1,8 +1,8 @@
-export interface NavbarButtonType{
-    id:number
-    name:string
-    count:number
-    onClick: (id:number)=>(void)
+export interface NavbarButtonType {
+    id: number
+    name: string
+    count: number
+    onClick: (id: number) => (void)
 }
 
 export interface TaskListType {
@@ -10,6 +10,7 @@ export interface TaskListType {
     count: number
     tasks?: ToDoType[]
     toggle?: (id: number) => (void)
+    togglePrimary?: (id: number) => (void)
 }
 
 export interface ToDoType {
@@ -18,6 +19,7 @@ export interface ToDoType {
     closed?: boolean
     id: number
     toggle?: (id: number) => (void)
+    togglePrimary?: (id: number) => (void)
 
 }
 

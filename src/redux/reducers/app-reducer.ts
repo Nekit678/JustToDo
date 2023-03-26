@@ -10,7 +10,6 @@ interface setIdAction {
 }
 
 
-
 let initialState: initialStateType = {
     currentId: 0
 }

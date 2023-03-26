@@ -7,7 +7,7 @@ interface taskType {
     id: number
 }
 
-interface listType {
+export interface listType {
     id: number
     name: string
     tasks: taskType[]
@@ -22,7 +22,7 @@ interface addTaskAction {
     payload: { id: number, task: taskType }
 }
 
-interface toggleTaskAction {
+interface toggleAction {
     type: string
     payload: { list_id: number, task_id: number }
 }
@@ -52,22 +52,30 @@ const fullInfoSlice = createSlice(
         reducers: {
             setInfo(state, action) {
             },
+
             addTask(state, action: addTaskAction) {
                 const list = state.lists.find((item) => (item.id == action.payload.id))
                 list?.tasks.push(action.payload.task)
             },
-            toggleTask(state, action: toggleTaskAction) {
+            toggleTask(state, action: toggleAction) {
                 const list = state.lists.find((item) => (item.id == action.payload.list_id))
                 const task = list?.tasks.find((item) => (item.id == action.payload.task_id))
                 if (task != undefined) {
                     task.closed = !task.closed
                 }
             },
+            togglePrimary(state, action: toggleAction) {
+                const list = state.lists.find((item) => (item.id == action.payload.list_id))
+                const task = list?.tasks.find((item) => (item.id == action.payload.task_id))
+                if (task != undefined) {
+                    task.primary = !task.primary
+                }
+            }
 
         }
     }
 )
 
 
-export const { setInfo, addTask, toggleTask } = fullInfoSlice.actions
+export const { setInfo, addTask, toggleTask, togglePrimary } = fullInfoSlice.actions
 export default fullInfoSlice.reducer
