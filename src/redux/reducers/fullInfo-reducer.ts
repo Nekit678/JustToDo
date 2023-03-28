@@ -10,6 +10,7 @@ interface taskType {
 export interface listType {
     id: number
     name: string
+    lastId: number
     tasks: taskType[]
 }
 
@@ -17,9 +18,15 @@ interface initialStateType {
     lists: listType[]
 }
 
+interface addTaskData {
+    primary: boolean
+    text: string
+    closed: boolean
+}
+
 interface addTaskAction {
     type: string
-    payload: { id: number, task: taskType }
+    payload: { id: number, task: addTaskData }
 }
 
 interface toggleAction {
@@ -28,21 +35,7 @@ interface toggleAction {
 }
 
 let initialState: initialStateType = {
-    lists: [{
-        id: 0, name: "ТЕСТ1", tasks: [{ primary: true, text: "TEST TEST", closed: true, id: 0 },
-        { primary: true, text: "TEST TEST", closed: true, id: 1 },
-        { primary: false, text: "TEST TEST", closed: false, id: 2 },
-        { primary: true, text: "TEST TEST", closed: false, id: 3 },
-        { primary: false, text: "TEST TEST", closed: false, id: 4 },
-        { primary: false, text: "TEST TEST", closed: false, id: 5 }]
-    }, {
-        id: 1, name: "ТЕСТ2", tasks: [{ primary: true, text: "sdfsdfsdf", closed: true, id: 0 },
-        { primary: true, text: "sdfsdf", closed: true, id: 1 },
-        { primary: false, text: "sdfsdfsdf", closed: true, id: 2 },
-        { primary: true, text: "sdfsfsdf", closed: false, id: 3 },
-        { primary: false, text: "sdfsdfs", closed: false, id: 4 },
-        { primary: false, text: "sdfsdfsdf", closed: false, id: 5 }]
-    }]
+    lists: []
 }
 
 const fullInfoSlice = createSlice(
@@ -51,23 +44,30 @@ const fullInfoSlice = createSlice(
         initialState: initialState,
         reducers: {
             setInfo(state, action) {
+                state.lists = action.payload
             },
 
             addTask(state, action: addTaskAction) {
-                const list = state.lists.find((item) => (item.id == action.payload.id))
-                list?.tasks.push(action.payload.task)
+                const list = state.lists.find((item) => (item.id === action.payload.id))
+
+                if (list !== undefined) {
+                    const lastId = list.lastId
+                    list.tasks.push({ ...action.payload.task, id: lastId })
+                    list.lastId += 1
+                }
+
             },
             toggleTask(state, action: toggleAction) {
-                const list = state.lists.find((item) => (item.id == action.payload.list_id))
-                const task = list?.tasks.find((item) => (item.id == action.payload.task_id))
-                if (task != undefined) {
+                const list = state.lists.find((item) => (item.id === action.payload.list_id))
+                const task = list?.tasks.find((item) => (item.id === action.payload.task_id))
+                if (task !== undefined) {
                     task.closed = !task.closed
                 }
             },
             togglePrimary(state, action: toggleAction) {
-                const list = state.lists.find((item) => (item.id == action.payload.list_id))
-                const task = list?.tasks.find((item) => (item.id == action.payload.task_id))
-                if (task != undefined) {
+                const list = state.lists.find((item) => (item.id === action.payload.list_id))
+                const task = list?.tasks.find((item) => (item.id === action.payload.task_id))
+                if (task !== undefined) {
                     task.primary = !task.primary
                 }
             }

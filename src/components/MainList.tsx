@@ -4,15 +4,27 @@ import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { RootState } from '../redux/store';
 import { getClosedTasks, getListName, getOpenTasks } from './../redux/selectors/fullInfo-selectors';
 import { addTask, togglePrimary, toggleTask } from '../redux/reducers/fullInfo-reducer';
+import { useEffect, useState } from 'react';
 
 
 export const MainList = () => {
+    const [sync, setSync] = useState(false)
 
     const dispatch = useDispatch()
     const currentId = useSelector((state: RootState) => state.app.currentId)
     const { openTasks, openCount } = useSelector((state: RootState) => getOpenTasks(state, currentId))
     const { closedTasks, closedCount } = useSelector((state: RootState) => getClosedTasks(state, currentId))
-    const listName = useSelector((state:RootState)=>getListName(state, currentId))
+    const listName = useSelector((state: RootState) => getListName(state, currentId))
+
+    const full = useSelector((state: RootState) => (state.fullInfo.lists))
+
+    useEffect(() => {
+        if (sync) {
+            localStorage.setItem("fullInfo", JSON.stringify(full))
+            setSync(!sync)
+        }
+
+    }, [sync])
 
     const switchTask = (id: number) => {
         dispatch(toggleTask({ list_id: currentId, task_id: id }))
@@ -23,7 +35,8 @@ export const MainList = () => {
     }
 
     const createTask = (text: string) => {
-        dispatch(addTask({ id: currentId, task: { primary: true, text: text, closed: false, id: 6 } }))
+        dispatch(addTask({ id: currentId, task: { primary: false, text: text, closed: false } }))
+        setSync(!sync)
     }
 
 
