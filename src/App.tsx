@@ -4,24 +4,26 @@ import { MainList } from './components/MainList';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { Navbar } from './components/Navbar/Navbar';
 import { setInfo } from './redux/reducers/fullInfo-reducer';
+import { EditBar } from './components/EditBar';
+import { RootState } from './redux/store';
 
 function App() {
-
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     if (localStorage.getItem("fullInfo") == null) {
       localStorage.setItem("fullInfo", JSON.stringify([{ id: 0, lastId: 0, name: "Задачи", tasks: [] }]))
     }
-
-    const fullInfo = JSON.parse(localStorage.getItem("fullInfo") || '{"lists":[], "lastId":0}')
-
+    const fullInfo = JSON.parse(localStorage.getItem("fullInfo") || JSON.stringify([{ id: 0, lastId: 0, name: "Задачи", tasks: [] }]))
     dispatch(setInfo(fullInfo))
-  }, [])
+  }, [dispatch])
 
-  if (localStorage.getItem("info") == null) {
-    localStorage.setItem("info", JSON.stringify([]))
-  }
+  const full = useSelector((state: RootState) => (state.fullInfo.lists))
+
+  useEffect(() => {
+    localStorage.setItem("fullInfo", JSON.stringify(full))
+  }, [full])
 
 
   return (
@@ -34,6 +36,9 @@ function App() {
         <MainList></MainList>
 
       </div>
+
+      <EditBar></EditBar>
+
     </div>
   );
 }
