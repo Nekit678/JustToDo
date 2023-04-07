@@ -4,7 +4,6 @@ import { MainList } from './components/MainList';
 import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { Navbar } from './components/Navbar/Navbar';
 import { setInfo } from './redux/reducers/fullInfo-reducer';
-import { EditBar } from './components/EditBar';
 import { RootState } from './redux/store';
 
 function App() {
@@ -36,8 +35,6 @@ function App() {
         <MainList></MainList>
 
       </div>
-
-      <EditBar></EditBar>
 
     </div>
   );

@@ -11,6 +11,8 @@ export interface TaskListType {
     tasks?: ToDoType[]
     toggle?: (id: number) => (void)
     togglePrimary?: (id: number) => (void)
+    deleteTask?: (id: number) => (void)
+    editTask?: (id: number, text: string) => (void)
 }
 
 export interface ToDoType {
@@ -20,6 +22,7 @@ export interface ToDoType {
     id: number
     toggle?: (id: number) => (void)
     togglePrimary?: (id: number) => (void)
-
+    deleteTask?: (id: number) => (void)
+    editTask?: (id: number, text: string) => (void)
 }
 

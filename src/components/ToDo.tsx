@@ -1,5 +1,5 @@
 import { Checkbox } from 'antd';
-import { StarFilled, StarOutlined } from '@ant-design/icons';
+import { StarFilled, StarOutlined, DeleteOutlined, DeleteFilled } from '@ant-design/icons';
 import { ToDoType } from '../types/types';
 
 export const ToDo = (props: ToDoType) => {
@@ -17,10 +17,18 @@ export const ToDo = (props: ToDoType) => {
                 </div>
             </div>
 
-            <div onClick={() => (props.togglePrimary ? props.togglePrimary(props.id) : undefined)} className='mr-2 cursor-pointer self-start'>
-                {props.primary ? <StarFilled className='text-gray-400 hover:text-gray-700 text-lg' /> :
-                    <StarOutlined className='text-gray-400 hover:text-gray-700 text-lg'></StarOutlined>}
+            <div className='flex flex-row'>
+                <div onClick={() => (props.togglePrimary ? props.togglePrimary(props.id) : undefined)} className='mr-2 cursor-pointer self-start'>
+                    {props.primary ? <StarFilled className='text-gray-400 hover:text-gray-700 text-lg' /> :
+                        <StarOutlined className='text-gray-400 hover:text-gray-700 text-lg'></StarOutlined>}
+                </div>
+
+                <div onClick={() => (props.deleteTask ? props.deleteTask(props.id) : undefined)} className='mr-2 cursor-pointer self-start'>
+                    <DeleteFilled className='text-red-400 hover:text-red-600 text-lg' />
+                </div>
             </div>
+
+
 
         </div>
     )

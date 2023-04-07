@@ -1,6 +1,9 @@
 import { RootState } from "../store"
 import { listType } from './../reducers/fullInfo-reducer';
 
+
+//! ОПТИМИЗИРОВАТЬ ЧЕРЕЗ Reselect для мемоизации компонентов!!!!
+
 export const getListById = (state: RootState, id: number) => {
     const list = state.fullInfo.lists.find((item) => (item.id === id))
     return list
@@ -33,12 +36,12 @@ const getCountOpenTasks = (list: listType) => {
 }
 
 export const getShortInfo = (state: RootState) => {
-    return state.fullInfo.lists.map((item) => ({id:item.id, name:item.name, count:getCountOpenTasks(item)}))
+    return state.fullInfo.lists.map((item) => ({ id: item.id, name: item.name, count: getCountOpenTasks(item) }))
 }
 
-export const getTaskById = (state: RootState, idList:number, idTask:number) => {
-    const list = state.fullInfo.lists.find((item)=>(item.id === idList))
-    const task = list?.tasks.find((item)=>(item.id === idTask))
+export const getTaskById = (state: RootState, idList: number, idTask: number) => {
+    const list = state.fullInfo.lists.find((item) => (item.id === idList))
+    const task = list?.tasks.find((item) => (item.id === idTask))
     return task
 }
 

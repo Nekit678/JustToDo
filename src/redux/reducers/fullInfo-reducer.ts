@@ -79,12 +79,20 @@ const fullInfoSlice = createSlice(
                 }
             },
 
+            editTask(state, action: { type: string, payload: { listId: number, taskId: number, text: string } }) {
+                const list = state.lists.find((item) => (item.id === action.payload.listId))
+                const task = list?.tasks.find((item) => (item.id === action.payload.taskId))
+                if (task !== undefined) {
+                    task.text = action.payload.text
+                }
+            },
+
             createList(state, action: { type: string, payload: null }) {
                 state.lists.push({ id: state.lists[state.lists.length - 1].id + 1, lastId: 0, name: "Без названия", tasks: [] })
             },
             renameList(state, action: { type: string, payload: { id: number, name: string } }) {
                 const list = state.lists.find((item) => (item.id === action.payload.id))
-                if (list != undefined) {
+                if (list !== undefined) {
                     list.name = action.payload.name
                 }
             },
@@ -101,5 +109,5 @@ const fullInfoSlice = createSlice(
 )
 
 
-export const { setInfo, addTask, toggleTask, togglePrimary, deleteTask, createList, renameList} = fullInfoSlice.actions
+export const { setInfo, addTask, toggleTask, togglePrimary, deleteTask, createList, renameList, editTask } = fullInfoSlice.actions
 export default fullInfoSlice.reducer
