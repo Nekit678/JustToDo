@@ -44,6 +44,8 @@ export const MainList = () => {
         dispatch(editTask({ listId: currentId, taskId: id, text: text }))
     }
 
+
+
     return (
         <div className='flex flex-col gap-5 '>
 
@@ -53,9 +55,9 @@ export const MainList = () => {
 
             <AddTaskInput addTask={createTask}></AddTaskInput>
 
-            <TaskList count={openCount || 0} tasks={openTasks} toggle={switchTask} togglePrimary={switchPrimary} deleteTask={delTask}></TaskList>
+            <TaskList count={openCount || 0} tasks={openTasks} toggle={switchTask} togglePrimary={switchPrimary} deleteTask={delTask} editTask={changeTask}></TaskList>
 
-            <TaskList closed count={closedCount || 0} tasks={closedTasks} toggle={switchTask} togglePrimary={switchPrimary} deleteTask={delTask}></TaskList>
+            <TaskList closed count={closedCount || 0} tasks={closedTasks} toggle={switchTask} togglePrimary={switchPrimary} deleteTask={delTask} editTask={changeTask}></TaskList>
         </div>
     )
 }

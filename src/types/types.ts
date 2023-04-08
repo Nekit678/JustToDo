@@ -1,3 +1,6 @@
+import { taskType } from "../redux/reducers/fullInfo-reducer"
+
+
 export interface NavbarButtonType {
     id: number
     name: string
@@ -5,10 +8,12 @@ export interface NavbarButtonType {
     onClick: (id: number) => (void)
 }
 
+
+/////////////////////////////////////////////////////////////////////////
 export interface TaskListType {
     closed?: boolean
     count: number
-    tasks?: ToDoType[]
+    tasks?: taskType[]
     toggle?: (id: number) => (void)
     togglePrimary?: (id: number) => (void)
     deleteTask?: (id: number) => (void)

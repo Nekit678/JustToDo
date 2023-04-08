@@ -1,19 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface taskType {
-    primary: boolean
-    text: string
-    closed: boolean
-    id: number
-}
-
-export interface listType {
-    id: number
-    name: string
-    lastId: number
-    tasks: taskType[]
-}
-
 interface initialStateType {
     lists: listType[]
 }
@@ -37,6 +23,22 @@ interface toggleAction {
 let initialState: initialStateType = {
     lists: []
 }
+
+///////////////////////////////////////////////////////////////////////////////
+export interface taskType {
+    primary: boolean
+    text: string
+    closed: boolean
+    id: number
+}
+
+export interface listType {
+    id: number
+    name: string
+    lastId: number
+    tasks: taskType[]
+}
+
 
 const fullInfoSlice = createSlice(
     {
