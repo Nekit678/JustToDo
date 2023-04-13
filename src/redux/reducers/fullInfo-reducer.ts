@@ -21,7 +21,7 @@ interface toggleAction {
 }
 
 let initialState: initialStateType = {
-    lists: []
+    lists: [{ id: 0, lastId: 0, name: "Задачи", tasks: [] }]
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -90,7 +90,7 @@ const fullInfoSlice = createSlice(
             },
 
             createList(state, action: { type: string, payload: null }) {
-                state.lists.push({ id: state.lists[state.lists.length - 1].id + 1, lastId: 0, name: "Без названия", tasks: [] })
+                state.lists.push({ id: state.lists[state.lists.length - 1]?.id !== undefined ? state.lists[state.lists.length - 1].id + 1 : 0, lastId: 0, name: "Без названия", tasks: [] })
             },
             renameList(state, action: { type: string, payload: { id: number, name: string } }) {
                 const list = state.lists.find((item) => (item.id === action.payload.id))

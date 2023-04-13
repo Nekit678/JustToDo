@@ -5,7 +5,7 @@ import { RootState } from '../redux/store';
 import { getClosedTasks, getListName, getOpenTasks } from './../redux/selectors/fullInfo-selectors';
 import { addTask, deleteList, deleteTask, editTask, renameList, togglePrimary, toggleTask } from '../redux/reducers/fullInfo-reducer';
 import { useCallback, useEffect, useState } from 'react';
-import { StarFilled, StarOutlined, DeleteFilled } from '@ant-design/icons';
+import { DeleteFilled } from '@ant-design/icons';
 
 export const MainList = () => {
     const currentId = useSelector((state: RootState) => state.app.currentId)
@@ -49,13 +49,13 @@ export const MainList = () => {
         dispatch(deleteList(id))
     }
 
-    if (listName != undefined) {
+    if (listName !== undefined) {
         return (
             <div className='flex flex-col gap-5 '>
 
                 <div className='mt-5 flex justify-center items-center text-red-400 hover:text-red-600'>
-                    <input className={`bg-transparent text-gray-200 font-medium text-3xl text-center rounded-lg focus:bg-gray-700 hover:bg-gray-700`} onBlur={() => (rename())} onChange={(e) => (setTextName(e.target.value))} value={textName || ""}></input>
-                    <div onClick={() => delList(currentId)} className='bg-gray-700 backdrop-blur-[1.5px] bg-opacity-90flex items-center rounded-lg cursor-pointer hover:bg-gray-800'>
+                    <input className={`bg-transparent text-gray-200 whitespace-nowrap h-full truncate font-medium text-3xl text-center rounded-lg focus:bg-gray-700 hover:bg-gray-700`} onBlur={() => (rename())} onChange={(e) => (setTextName(e.target.value))} value={textName || ""}></input>
+                    <div onClick={() => delList(currentId)} className='bg-gray-700 ml-2 backdrop-blur-[1.5px] bg-opacity-90flex items-center rounded-lg cursor-pointer hover:bg-gray-800'>
                         <DeleteFilled className='text-2xl m-[1px] mb-[7px] ml-2 mr-2'></DeleteFilled>
                     </div>
 
@@ -69,8 +69,8 @@ export const MainList = () => {
             </div>
         )
     }
-    else{
-        return(<div className='text-4xl text-center font-bold text-gray-200'>Выберите список задач на левой панели, или создайте новый</div>)
+    else {
+        return (<div className='text-4xl text-center font-bold text-gray-200'>Выберите список задач на левой панели, или создайте новый</div>)
     }
 
 
