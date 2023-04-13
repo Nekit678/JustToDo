@@ -1,5 +1,8 @@
 import { RootState } from "../store"
 import { listType } from './../reducers/fullInfo-reducer';
+import { createSelector } from 'reselect'
+
+
 
 
 //! ОПТИМИЗИРОВАТЬ ЧЕРЕЗ Reselect для мемоизации компонентов!!!!

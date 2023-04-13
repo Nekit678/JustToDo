@@ -111,5 +111,5 @@ const fullInfoSlice = createSlice(
 )
 
 
-export const { setInfo, addTask, toggleTask, togglePrimary, deleteTask, createList, renameList, editTask } = fullInfoSlice.actions
+export const { setInfo, addTask, toggleTask, togglePrimary, deleteTask, createList, renameList, editTask, deleteList } = fullInfoSlice.actions
 export default fullInfoSlice.reducer

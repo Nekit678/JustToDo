@@ -1,9 +1,9 @@
 import { Checkbox } from 'antd';
-import { StarFilled, StarOutlined, DeleteOutlined, DeleteFilled } from '@ant-design/icons';
+import { StarFilled, StarOutlined, DeleteFilled } from '@ant-design/icons';
 import { ToDoType } from '../types/types';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-export const ToDo = (props: ToDoType) => {
+export const ToDo = React.memo((props: ToDoType) => {
 
     const [text, setText] = useState(props.text)
 
@@ -24,7 +24,7 @@ export const ToDo = (props: ToDoType) => {
                 </div>
 
                 <div className='ml-4 w-full'>
-                    <textarea onBlur={() => (props.editTask ? props.editTask(props.id, text || "") : undefined)} onChange={handleChange} className={`flex resize-none h-fit w-full bg-transparent ${props.closed ? "line-through text-gray-400" : "text-gray-200"}`} value={text}></textarea>
+                    <textarea onBlur={() => (props.editTask ? props.editTask(props.id, text || "") : undefined)} onChange={handleChange} className={`flex outline-0 offset-outline resize-none h-fit w-full bg-transparent ${props.closed ? "line-through text-gray-400" : "text-gray-200"}`} value={text}></textarea>
                 </div>
             </div>
 
@@ -41,4 +41,4 @@ export const ToDo = (props: ToDoType) => {
         </div>
     )
 
-}
+}) 

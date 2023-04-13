@@ -8,6 +8,9 @@ export interface NavbarButtonType {
     onClick: (id: number) => (void)
 }
 
+export interface AddTaskInputType {
+    addTask: (id: string) => (void)
+}
 
 /////////////////////////////////////////////////////////////////////////
 export interface TaskListType {
