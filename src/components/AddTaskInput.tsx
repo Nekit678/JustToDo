@@ -2,8 +2,9 @@ import { Checkbox } from "antd"
 import { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { AddTaskInputType } from "../types/types";
+import React from "react";
 
-export const AddTaskInput = (props: AddTaskInputType) => {
+export const AddTaskInput = React.memo((props: AddTaskInputType) => {
     const [edit, setEdit] = useState(false)
     const [text, setText] = useState("")
 
@@ -26,4 +27,4 @@ export const AddTaskInput = (props: AddTaskInputType) => {
 
     )
 
-}
+})

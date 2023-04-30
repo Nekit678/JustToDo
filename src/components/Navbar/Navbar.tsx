@@ -6,6 +6,7 @@ import { getShortInfo } from './../../redux/selectors/fullInfo-selectors';
 import { createList } from '../../redux/reducers/fullInfo-reducer';
 import { useCallback } from 'react';
 
+
 export const Navbar = () => {
     const dispatch = useDispatch()
     const lists = useSelector((state: RootState) => getShortInfo(state))

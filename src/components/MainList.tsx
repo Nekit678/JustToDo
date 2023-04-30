@@ -5,7 +5,7 @@ import { RootState } from '../redux/store';
 import { getClosedTasks, getListName, getOpenTasks } from './../redux/selectors/fullInfo-selectors';
 import { addTask, deleteList, deleteTask, editTask, renameList, togglePrimary, toggleTask } from '../redux/reducers/fullInfo-reducer';
 import { useCallback, useEffect, useState } from 'react';
-import { DeleteFilled } from '@ant-design/icons';
+import { NameList } from './NameList';
 
 export const MainList = () => {
     const currentId = useSelector((state: RootState) => state.app.currentId)
@@ -13,12 +13,6 @@ export const MainList = () => {
     const { closedTasks, closedCount } = useSelector((state: RootState) => getClosedTasks(state, currentId))
     const listName = useSelector((state: RootState) => getListName(state, currentId))
     const dispatch = useDispatch()
-
-    const [textName, setTextName] = useState(listName)
-
-    useEffect(() => {
-        setTextName(listName)
-    }, [listName])
 
     const switchTask = useCallback((id: number) => {
         dispatch(toggleTask({ list_id: currentId, task_id: id }))
@@ -40,32 +34,37 @@ export const MainList = () => {
         dispatch(addTask({ id: currentId, task: { primary: false, text: text, closed: false } }))
     }, [currentId, dispatch])
 
+    const rename = useCallback((name: string) => {
+        dispatch(renameList({ id: currentId, name: name || "" }))
+    }, [currentId, dispatch])
 
-    const rename = () => {
-        dispatch(renameList({ id: currentId, name: textName || "" }))
-    }
-
-    const delList = (id: number) => {
+    const delList = useCallback((id: number) => {
         dispatch(deleteList(id))
-    }
+    }, [currentId, dispatch])
+
+    // !!!!!!!!!!!!!!!!!!!!!!
+    const openToDoList = openTasks?.map((item) => ({
+        ...item, toggle: switchTask, togglePrimary: switchPrimary,
+        deleteTask: delTask, editTask: changeTask
+    }))
+
+    const closedToDoList = closedTasks?.map((item) => ({
+        ...item, toggle: switchTask, togglePrimary: switchPrimary,
+        deleteTask: delTask, editTask: changeTask
+    }))
+    // !!!!!!!!!!!!!!!!!!!!!!
 
     if (listName !== undefined) {
         return (
             <div className='flex flex-col gap-5 '>
 
-                <div className='mt-5 flex justify-center items-center text-red-400 hover:text-red-600'>
-                    <input className={`bg-transparent text-gray-200 whitespace-nowrap h-full truncate font-medium text-3xl text-center rounded-lg focus:bg-gray-700 hover:bg-gray-700`} onBlur={() => (rename())} onChange={(e) => (setTextName(e.target.value))} value={textName || ""}></input>
-                    <div onClick={() => delList(currentId)} className='bg-gray-700 ml-2 backdrop-blur-[1.5px] bg-opacity-90flex items-center rounded-lg cursor-pointer hover:bg-gray-800'>
-                        <DeleteFilled className='text-2xl m-[1px] mb-[7px] ml-2 mr-2'></DeleteFilled>
-                    </div>
-
-                </div>
+                <NameList currentId={currentId} listName={listName} delList={delList} renameList={rename}></NameList>
 
                 <AddTaskInput addTask={createTask}></AddTaskInput>
 
-                <TaskList count={openCount || 0} tasks={openTasks} toggle={switchTask} togglePrimary={switchPrimary} deleteTask={delTask} editTask={changeTask}></TaskList>
+                <TaskList count={openCount || 0} tasks={openToDoList}></TaskList>
 
-                <TaskList closed count={closedCount || 0} tasks={closedTasks} toggle={switchTask} togglePrimary={switchPrimary} deleteTask={delTask} editTask={changeTask}></TaskList>
+                <TaskList closed count={closedCount || 0} tasks={closedToDoList}></TaskList>
             </div>
         )
     }

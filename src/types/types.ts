@@ -14,13 +14,12 @@ export interface AddTaskInputType {
 
 /////////////////////////////////////////////////////////////////////////
 export interface TaskListType {
+    // относится к самому компоненту списка
     closed?: boolean
     count: number
-    tasks?: taskType[]
-    toggle?: (id: number) => (void)
-    togglePrimary?: (id: number) => (void)
-    deleteTask?: (id: number) => (void)
-    editTask?: (id: number, text: string) => (void)
+
+    //! по идее тут тудушки сами, это целиком передается в компонент
+    tasks?: ToDoType[]
 }
 
 export interface ToDoType {
@@ -28,9 +27,19 @@ export interface ToDoType {
     text?: string
     closed?: boolean
     id: number
+
     toggle?: (id: number) => (void)
     togglePrimary?: (id: number) => (void)
     deleteTask?: (id: number) => (void)
     editTask?: (id: number, text: string) => (void)
+}
+
+
+export interface NameListType {
+    listName: string
+    currentId: number
+
+    delList: (id: number) => (void)
+    renameList: (name: string) => void
 }
 

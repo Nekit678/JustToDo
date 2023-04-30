@@ -1,5 +1,25 @@
 import { RootState } from "../store"
 import { listType } from './../reducers/fullInfo-reducer';
+import { createSelector } from '@reduxjs/toolkit'
+
+
+const getLists = (state: RootState) => {
+    return state.fullInfo.lists
+}
+
+// export const getShortInfo = (state: RootState) => {
+//     return state.fullInfo.lists.map((item) => ({ id: item.id, name: item.name, count: getCountOpenTasks(item) }))
+// }
+
+const getCountOpenTasks = (list: listType) => {
+    const openTasks = list?.tasks.filter((item) => (item.closed === false))
+    const count = openTasks?.length
+    return count
+}
+
+export const getShortInfo = createSelector([getLists], (lists) => {
+    return lists.map((item) => ({ id: item.id, name: item.name, count: getCountOpenTasks(item) }))
+})
 
 //! ОПТИМИЗИРОВАТЬ ЧЕРЕЗ Reselect для мемоизации компонентов!!!!
 
@@ -26,16 +46,6 @@ export const getOpenTasks = (state: RootState, id: number) => {
 export const getListName = (state: RootState, id: number) => {
     const list = getListById(state, id)
     return list?.name
-}
-
-const getCountOpenTasks = (list: listType) => {
-    const openTasks = list?.tasks.filter((item) => (item.closed === false))
-    const count = openTasks?.length
-    return count
-}
-
-export const getShortInfo = (state: RootState) => {
-    return state.fullInfo.lists.map((item) => ({ id: item.id, name: item.name, count: getCountOpenTasks(item) }))
 }
 
 export const getTaskById = (state: RootState, idList: number, idTask: number) => {

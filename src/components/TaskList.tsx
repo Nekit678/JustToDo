@@ -14,7 +14,7 @@ export const TaskList = (props: TaskListType) => {
                         {props.closed ? "Завершенные " : "Текущие "}{props.count}</text></button>
                     <div className={`${show ? "max-h-60" : ""} overflow-x-clip overflow-y-scroll scroll-smooth`}>
                         {show ? <div className='flex flex-col gap-2 mr-2 ml-2'>
-                            {props.tasks?.map((item) => (<ToDo key={item.id} primary={item.primary} closed={item.closed} text={item.text} id={item.id} toggle={props.toggle} togglePrimary={props.togglePrimary} deleteTask={props.deleteTask} editTask={props.editTask}></ToDo>))}
+                            {props.tasks?.map((item) => (<ToDo key={item.id} {...item}></ToDo>))}
                         </div> : <></>}
                     </div>
                 </div>
